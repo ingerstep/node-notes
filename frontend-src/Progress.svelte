@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
 
   export let step = 10;
@@ -28,4 +28,4 @@
   });
 </script>
 
-<progress class="uk-progress" value={progress} max="100" />
+<progress class="uk-progress" value={progress} max="100"></progress>

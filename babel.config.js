@@ -1,4 +1,4 @@
-module.exports = (api) => {
+export default (api) => {
   api.cache(true);
 
   return {
@@ -6,7 +6,7 @@ module.exports = (api) => {
       [
         "@babel/env",
         {
-          targets: { browsers: ["last 2 versions, > 1%, not dead"] },
+          targets: { browsers: ["last 2 versions", "> 1%", "not dead"] },
           useBuiltIns: "usage",
           corejs: 3,
         },

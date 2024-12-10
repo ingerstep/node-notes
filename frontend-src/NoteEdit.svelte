@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import EasyMDE from "easymde";
 
@@ -48,13 +48,13 @@
   <Progress />
 {:then _}
   <div class="uk-margin-bottom">
-    <button on:click={save} class="uk-button uk-button-primary"><i class="fas fa-save" />&nbsp;Сохранить</button>
-    <button on:click={cancel} class="uk-button uk-button-default"><i class="fas fa-undo" />&nbsp;Отмена</button>
+    <button onclick={save} class="uk-button uk-button-primary"><i class="fas fa-save" ></i>&nbsp;Сохранить</button>
+    <button onclick={cancel} class="uk-button uk-button-default"><i class="fas fa-undo" ></i>&nbsp;Отмена</button>
   </div>
 
   <div class="uk-margin"><input bind:value={title} class="uk-input" type="text" placeholder="Заголовок" /></div>
 
-  <div class="uk-margin"><textarea bind:this={textarea} class="uk-textarea" /></div>
+  <div class="uk-margin"><textarea bind:this={textarea} class="uk-textarea" ></textarea></div>
 {:catch error}
   <div class="uk-alert uk-alert-danger">
     <p>Ошибка: {error.message}.</p>

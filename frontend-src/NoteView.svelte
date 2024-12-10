@@ -1,37 +1,37 @@
-<script>
-  import { createEventDispatcher } from "svelte";
-
-  import { getNote, archiveNote, unarchiveNote, deleteNote, notePdfUrl } from "./api";
-
+<script lang="ts">
+  import { getNote, archiveNote, unarchiveNote, deleteNote } from "./api";
   import Progress from "./Progress.svelte";
 
-  export let params;
-
-  const dispatch = createEventDispatcher();
+  export let params: { id: string };
+  export let onNoteClosed: () => void;
+  export let onNoteArchived: () => void;
+  export let onNoteDeleted: () => void;
+  export let onNoteUnarchived: () => void;
+  export let onNoteEditStarted: () => void;
 
   $: p = getNote(params.id);
 
   const close = async () => {
-    dispatch("routeEvent", { type: "note-closed", id: params.id });
+    onNoteClosed();
   };
 
   const doArchive = async () => {
     await archiveNote(params.id);
-    dispatch("routeEvent", { type: "note-archived", id: params.id });
+    onNoteArchived();
   };
 
   const doDelete = async () => {
     await deleteNote(params.id);
-    dispatch("routeEvent", { type: "note-deleted", id: params.id });
+    onNoteDeleted();
   };
 
   const doUnarchive = async () => {
     await unarchiveNote(params.id);
-    dispatch("routeEvent", { type: "note-unarchived", id: params.id });
+    onNoteUnarchived();
   };
 
   const doEdit = () => {
-    dispatch("routeEvent", { type: "note-edit-started", id: params.id });
+    onNoteEditStarted();
   };
 </script>
 
@@ -41,23 +41,20 @@
   <h1>{entry.title}</h1>
   <div class="uk-margin-bottom">
     {#if entry.isArchived}
-      <button on:click={doDelete} class="uk-button uk-button-default"><i class="fas fa-trash" />&nbsp;Удалить</button>
-      <button on:click={doUnarchive} class="uk-button uk-button-default"><i
-          class="fas fa-archive" />&nbsp;Восстановить</button>
+      <button on:click={doDelete} class="uk-button uk-button-default">Удалить</button>
+      <button on:click={doUnarchive} class="uk-button uk-button-default">Восстановить</button>
     {:else}
-      <button on:click={doArchive} class="uk-button uk-button-default"><i class="fas fa-archive" />&nbsp;В архив</button>
+      <button on:click={doArchive} class="uk-button uk-button-default">В архив</button>
     {/if}
 
-    <button on:click={doEdit} class="uk-button uk-button-primary"><i class="fas fa-edit" />&nbsp;Редактировать</button>
-    <!-- <a href={notePdfUrl(entry._id)} class="uk-button uk-button-secondary"><i
-        class="fas fa-file-download" />&nbsp;PDF</a> -->
-    <button on:click={close} class="uk-button uk-button-default"><i class="fas fa-times" />&nbsp;Закрыть</button>
+    <button on:click={doEdit} class="uk-button uk-button-primary">Редактировать</button>
+    <button on:click={close} class="uk-button uk-button-default">Закрыть</button>
   </div>
   <div class="uk-card uk-card-default uk-card-body">
     {@html entry.html}
   </div>
 {:catch error}
   <div class="uk-alert uk-alert-danger">
-    <p>Ошибка: {error.message}.</p>
+    <p>Ошибка: {error.message}</p>
   </div>
 {/await}

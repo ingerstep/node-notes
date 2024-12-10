@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Router, { link, location, push } from "svelte-spa-router";
 
   import { routerPrefix, routePatterns, getActiveNoteId } from "./lib";
@@ -25,7 +25,7 @@
   let page = 1;
   let entries = [];
 
-  const fetch = ({ reset = false } = {}) => {
+  const fetch = ({ reset = false } = {})=> {
     if (reset) {
       page = 1;
       entries = [];
@@ -42,7 +42,6 @@
     page += 1;
     return fetch();
   };
-
   const fetchFromScratch = ({ resetNav = true } = {}) => {
     if (resetNav) {
       push("/");
@@ -102,13 +101,13 @@
           заметка</a>
       {/if}
     {:else}
-      <button on:click={deleteAll} class="uk-button uk-button-secondary uk-display-block uk-width-1-1">Удалить весь
+      <button onclick={deleteAll} class="uk-button uk-button-secondary uk-display-block uk-width-1-1">Удалить весь
         архив</button>
     {/if}
 
     <p>
       <!-- svelte-ignore a11y-no-onchange -->
-      <select bind:value={age} on:change={fetchFromScratch} class="uk-select">
+      <select bind:value={age} onchange={fetchFromScratch} class="uk-select">
         <option value="1month">за месяц</option>
         <option value="3months">за 3 месяца</option>
         <option value="alltime">за всё время</option>
@@ -134,7 +133,7 @@
     {:then hasMore}
       {#if hasMore}
         <button
-          on:click={loadMore}
+          onclick={loadMore}
           class="uk-button uk-button-secondary uk-margin-top uk-display-block uk-width-1-1">Загрузить ещё&hellip;</button>
       {/if}
     {:catch error}
