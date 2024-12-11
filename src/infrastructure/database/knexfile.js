@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   client: "pg",
   connection: {
     host: "127.0.0.1",
@@ -11,4 +11,3 @@ const config = {
     directory: "./migrations",
   },
 };
-export default config;

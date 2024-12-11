@@ -6,7 +6,9 @@ export function up(knex) {
   return knex.schema.createTable("users", (table) => {
     table.increments("id").primary();
     table.string("login").notNullable().unique();
-    table.string("hash");
+    table.string("hash").notNullable();
+    table.timestamp("createdAt").defaultTo(knex.fn.now());
+    table.timestamp("updatedAt").defaultTo(knex.fn.now());
   });
 }
 

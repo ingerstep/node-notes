@@ -1,7 +1,7 @@
-import { Note } from "../entities/Note";
+import { Note } from "..";
 
 export interface NoteRepository {
-  save(note: Note): Promise<void>;
+  create(note: Note): Promise<void>;
   findByUserId(userId: number): Promise<Note[]>;
   findById(noteId: number): Promise<Note | null>;
   update(note: Note): Promise<void>;

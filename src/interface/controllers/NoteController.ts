@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 
-import { GetNoteById } from "../../use-cases/GetNoteById";
+import { GetNoteById } from "../../use-cases";
 
 interface NoteRequestParams {
   id: string;
 }
 
 export class NoteController {
-  constructor(private getNoteById: GetNoteById) { }
+  constructor(private getNoteById: GetNoteById) {}
 
   async getNote(req: Request<NoteRequestParams>, res: Response) {
     const id = parseInt(req.params.id, 10);

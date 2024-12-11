@@ -12,4 +12,4 @@ function app() {
   });
 }
 
-app()
+app();

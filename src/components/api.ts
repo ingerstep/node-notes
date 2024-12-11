@@ -10,33 +10,33 @@ const req = (url, options = {}) => {
       ...options.headers,
       ...(body
         ? {
-          "Content-Type": "application/json",
-        }
+            "Content-Type": "application/json",
+          }
         : null),
     },
   }).then((res) =>
     res.ok
       ? res.json()
       : res.text().then((message) => {
-        throw new Error(message);
-      }),
+          throw new Error(message);
+        }),
   );
 };
 
-export const getNotes = ({ age, search, page } = {}) => { };
+export const getNotes = ({ age, search, page } = {}) => {};
 
-export const createNote = async (title, text) => { };
+export const createNote = async (title, text) => {};
 
-export const getNote = (id) => { };
+export const getNote = (id) => {};
 
 export const archiveNote = {};
 
 export const unarchiveNote = {};
 
-export const editNote = (id, title, text) => { };
+export const editNote = (id, title, text) => {};
 
-export const deleteNote = (id) => { };
+export const deleteNote = (id) => {};
 
-export const deleteAllArchived = () => { };
+export const deleteAllArchived = () => {};
 
-export const notePdfUrl = (id) => { };
+export const notePdfUrl = (id) => {};

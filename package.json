@@ -5,7 +5,6 @@
   "description": "",
   "keywords": [],
   "main": "index.ts",
-  "type": "module",
   "scripts": {
     "start": "node ts-node/esm ./src/index.ts",
     "dev": "nodemon -r tsx/register ./src/index.ts",
@@ -20,8 +19,10 @@
     "node": ">=18.x"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "nunjucks": "^3.2.4",
     "pg": "^8.13.1",
     "tsconfig-paths": "^4.2.0"
@@ -36,7 +37,9 @@
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^12.1.1",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.1",
     "@types/nunjucks": "^3.2.6",
     "@types/rollup-plugin-css-only": "^3.1.3",
