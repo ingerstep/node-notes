@@ -9,11 +9,11 @@
     "start": "node ts-node/esm ./src/index.ts",
     "dev": "nodemon -r tsx/register ./src/index.ts",
     "test": "echo \"Tests passed\" && exit 0",
-    "build": "rimraf public/bundle.* && rollup --config",
+    "build": "rimraf dist/bundle.* && rollup --config",
     "format": "npx prettier -w .",
-    "migrate:latest": "knex migrate:latest --knexfile ./src/infrastructure/database/knexfile.js",
-    "migrate:rollback": "knex migrate:rollback --knexfile ./src/infrastructure/database/knexfile.js",
-    "migrate:make": "knex migrate:make --knexfile ./src/infrastructure/database/knexfile.js"
+    "migrate:latest": "knex migrate:latest --knexfile ./src/config/knexfile.js",
+    "migrate:rollback": "knex migrate:rollback --knexfile ./src/config/knexfile.js",
+    "migrate:make": "knex migrate:make --knexfile ./src/config/knexfile.js"
   },
   "engines": {
     "node": ">=18.x"
@@ -57,6 +57,8 @@
     "knex": "^3.1.0",
     "knex-cli": "^1.0.2",
     "nodemon": "^3.1.7",
+    "prettier": "^3.4.2",
+    "prettier-plugin-svelte": "^3.3.2",
     "regexparam": "^3.0.0",
     "rimraf": "^6.0.1",
     "rollup": "^2.79.2",

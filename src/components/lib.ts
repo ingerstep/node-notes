@@ -1,66 +1,64 @@
-import { parseISO } from "date-fns/parseISO";
-import { format } from "date-fns/format";
-
-const regexparam = require("regexparam");
+import { parseISO } from 'date-fns/parseISO'
+import { format } from 'date-fns/format'
+import { parse } from 'regexparam'
 
 // routing
-
 export const routePatterns = {
-  new: "/new",
-  edit: "/:id/edit",
-  view: "/:id",
-};
+  new: '/new',
+  edit: '/:id/edit',
+  view: '/:id',
+}
 
-export const routerPrefix = "/note";
+export const routerPrefix = '/note'
 
-const routeRegexes = Object.keys(routePatterns).reduce((acc, p) => {
-  acc[p] = regexparam(routePatterns[p]);
-  return acc;
-}, {});
+const routeRegexes = Object.keys(routePatterns).reduce(
+  (acc, p) => {
+    acc[p] = parse(routePatterns[p])
+    return acc
+  },
+  {} as Record<string, any>
+)
 
-const matchPattern = (path, { keys, pattern }) => {
-  const matches = pattern.exec(path);
+const matchPattern = (path: string, { keys, pattern }: { keys: string[]; pattern: RegExp }) => {
+  const matches = pattern.exec(path)
 
   if (!matches) {
-    return;
+    return null
   }
 
-  let i = 0;
-  const params = {};
-
+  const params: Record<string, string | null> = {}
+  let i = 0
   while (i < keys.length) {
-    params[keys[i]] = matches[++i] || null;
+    params[keys[i]] = matches[++i] || null
   }
 
-  return params;
-};
+  return params
+}
 
-export const getActiveNoteId = ($location) => {
-  const loc = $location.replace(new RegExp("^" + routerPrefix), "");
+export const getActiveNoteId = ($location: string): string | null => {
+  const loc = $location.replace(new RegExp('^' + routerPrefix), '')
 
   for (const p of [routeRegexes.view, routeRegexes.edit]) {
-    const m = matchPattern(loc, p);
+    const m = matchPattern(loc, p)
     if (m && m.id) {
-      return m.id;
+      return m.id
     }
   }
-  return null;
-};
+  return null
+}
 
-// data formatting
-
-export const formatDate = (date) => {
+export const formatDate = (date: string): string => {
   if (!date) {
-    return "";
+    return ''
   }
-  const d = parseISO(date);
-  return format(d, "dd.MM.yyyy");
-};
+  const d = parseISO(date)
+  return format(d, 'dd.MM.yyyy')
+}
 
-export const formatSearchResult = (e) => {
-  const hl = e.highlights;
+export const formatSearchResult = (e: { highlights?: string; title: string }): string => {
+  const hl = e.highlights
   if (!hl) {
-    return e.title;
+    return e.title
   }
-  return hl.replace(/<mark>/g, "<strong>").replace(/<\/mark>/g, "</strong>");
-};
+  return hl.replace(/<mark>/g, '<strong>').replace(/<\/mark>/g, '</strong>')
+}

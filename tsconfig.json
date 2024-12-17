@@ -5,11 +5,11 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
-    "outDir": "public",
+    "outDir": "dist",
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.{ts, js}"],
-  "exclude": ["node_modules", "public"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
